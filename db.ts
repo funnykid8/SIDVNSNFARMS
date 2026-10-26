@@ -1,0 +1,18 @@
+import { Capacitor } from '@capacitor/core';
+import * as browser from './db.web';
+import * as native from './db.native';
+const impl = Capacitor.isNativePlatform() ? native : browser;
+export const TABLES = browser.TABLES;
+export const openDb = () => impl.openDb();
+export const q: typeof browser.q = (sql, p=[]) => impl.q(sql,p);
+export const run: typeof browser.run = (sql,p=[]) => impl.run(sql,p);
+export const batch: typeof browser.batch = stmts => impl.batch(stmts);
+export const S = browser.S;
+export const insert: typeof browser.insert = (t,o) => impl.insert(t,o);
+export const update: typeof browser.update = (t,id,o) => impl.update(t,id,o);
+export const save: typeof browser.save = (t,o) => impl.save(t,o);
+export const del: typeof browser.del = (t,id) => impl.del(t,id);
+export const getSetting = (k:string) => impl.getSetting(k);
+export const setSetting = (k:string,v:string) => impl.setSetting(k,v);
+export const exportAll = () => impl.exportAll();
+export const importAll = (data:any) => impl.importAll(data);
